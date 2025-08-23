@@ -70,8 +70,11 @@
 
                     <flux:menu.radio.group>
                         <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                        @if (Route::has('horizon.index'))
+                        <flux:menu.item :href="route('horizon.index')" icon="circle-stack" wire:navigate>{{ __('Horizon') }}</flux:menu.item>
+                        @endif
                     </flux:menu.radio.group>
-
+                    
                     <flux:menu.separator />
 
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
