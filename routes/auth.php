@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\SocialiteController;
+use App\Http\Controllers\SocialiteGoogleController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -17,6 +19,12 @@ Route::middleware('guest')->group(function () {
     Volt::route('reset-password/{token}', 'auth.reset-password')
         ->name('password.reset');
 
+    // Socialite support
+    Route::get('/auth/{provider}/redirect', SocialiteController::class)
+        ->name('socialite.redirect');
+
+    Route::get('/auth/google/callback/', SocialiteGoogleController::class)
+        ->name('socialite.callback.google');
 });
 
 Route::middleware('auth')->group(function () {
