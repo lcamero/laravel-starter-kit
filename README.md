@@ -2,7 +2,7 @@
 
 Laravel v12
 Livewire v3
-Livewire Flux
+Livewire Flux Pro
 
 Laravel Boost
 Laravel Horizon
