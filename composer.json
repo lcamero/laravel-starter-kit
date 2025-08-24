@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "lcamero/livewire-starter-kit",
+    "name": "lcamero/laravel-starter-kit",
     "type": "project",
     "description": "Laravel Starter Kit",
     "keywords": [
