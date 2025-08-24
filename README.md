@@ -8,4 +8,5 @@ Laravel Boost
 Laravel Horizon
 Laravel Pail
 Laravel Pint
+Laravel Telescope
 PestPHP
