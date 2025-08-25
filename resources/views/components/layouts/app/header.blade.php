@@ -71,16 +71,19 @@
                     
                     <flux:menu.radio.group>
                         <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
-                        @if (Route::has('horizon.index'))
                     </flux:menu.radio.group>
-
+                    
                     <flux:menu.separator />
-
+                    
                     <flux:menu.radio.group>
+                        @if (Route::has('horizon.index'))
                         <flux:menu.item :href="route('horizon.index')" target="_blank" icon="circle-stack">{{ __('Horizon') }}</flux:menu.item>
                         @endif
                         @if (Route::has('telescope'))
                         <flux:menu.item :href="route('telescope')" target="_blank" icon="lifebuoy">{{ __('Telescope') }}</flux:menu.item>
+                        @endif
+                        @if (Route::has('pulse'))
+                        <flux:menu.item :href="route('pulse')" target="_blank" icon="heart">{{ __('Pulse') }}</flux:menu.item>
                         @endif
                     </flux:menu.radio.group>
                     
