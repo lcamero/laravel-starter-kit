@@ -27,6 +27,9 @@ php artisan pail
 ```
 
 
+### Laravel Pennant
+[Laravel Pennant](https://laravel.com/docs/12.x/pennant) is a simple and light-weight feature flag package. Feature flags enable you to incrementally roll out new application features with confidence, A/B test new interface designs, complement a trunk-based development strategy, and much more.
+
 ### Laravel Pint
 [Laravel Pint](https://laravel.com/docs/12.x/pint) is an opinionated PHP code style fixer for Laravel projects.  
 It helps enforce consistent code formatting using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer) under the hood.
