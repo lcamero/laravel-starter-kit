@@ -35,6 +35,21 @@ It helps enforce consistent code formatting using [PHP-CS-Fixer](https://github.
 ./vendor/bin/pint
 ```
 
+### Laravel Pulse
+[Laravel Pulse](https://laravel.com/docs/12.x/pulse) is a lightweight, real-time application performance monitoring tool.
+It provides a dashboard to track key metrics such as application performance, slow queries, job throughput, and system resource usage, helping you identify bottlenecks and optimize your application.
+
+Most Pulse recorders will automatically capture entries based on framework events dispatched by Laravel. However, the servers recorder and some third-party cards must poll for information regularly. To use these cards, you must run the check daemon on all of your individual application servers
+
+```bash
+php artisan pulse:check
+```
+
+After deployment:
+```bash
+php artisan pulse:restart
+```
+
 
 ### Laravel Socialite
 [Laravel Socialite](https://laravel.com/docs/12.x/socialite) provides an expressive, fluent interface for OAuth authentication with popular providers like Google, Facebook, GitHub, and more.  
