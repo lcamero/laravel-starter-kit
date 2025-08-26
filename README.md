@@ -8,6 +8,10 @@ This starter kit comes pre-configured with a modern Laravel 12 stack, including 
 ### Laravel Boost
 [Laravel Boost](https://github.com/laravel/boost) accelerates AI-assisted development by providing the essential context and structure that AI needs to generate high-quality, Laravel-specific code.
 
+### Laravel Debugbar
+[Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar) is a development package that adds a toolbar to your application, giving you real-time insights into queries, routes, views, logs, and performance. It helps you debug and profile your Laravel app directly in the browser. 
+
+It can be paired with Laravel's Telescope package to gain insight of your application.
 
 ### Laravel Horizon
 [Laravel Horizon](https://laravel.com/docs/12.x/horizon) provides a beautiful dashboard and code-driven configuration for managing [Redis](https://redis.io/) queues.  
@@ -25,7 +29,6 @@ It provides better insight into application events and errors without having to 
 ```bash
 php artisan pail
 ```
-
 
 ### Laravel Pennant
 [Laravel Pennant](https://laravel.com/docs/12.x/pennant) is a simple and light-weight feature flag package. Feature flags enable you to incrementally roll out new application features with confidence, A/B test new interface designs, complement a trunk-based development strategy, and much more.
