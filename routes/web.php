@@ -4,7 +4,13 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
-    return view('welcome');
+    $readme = File::get(base_path('README.md'));
+
+    $readmeHtml = Str::markdown($readme);
+
+    return view('welcome', [
+        'readme' => $readmeHtml,
+    ]);
 })->name('home');
 
 Route::view('dashboard', 'dashboard')
