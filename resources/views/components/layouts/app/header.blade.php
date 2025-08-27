@@ -118,7 +118,7 @@
             <flux:spacer />
 
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
+                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs" target="_blank">
                 {{ __('Documentation') }}
                 </flux:navlist.item>
             </flux:navlist>

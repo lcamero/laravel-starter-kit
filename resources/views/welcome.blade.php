@@ -37,7 +37,7 @@
             @endif
         </header>
         <div class="w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0 font-light dark:text-white max-w-4xl mx-auto space-y-20">
-            <article class="markdown-body">
+            <article class="markdown-body dark:text-white! dark:bg-black!">
                 {!! $readme !!}
             </article>
         </div>
