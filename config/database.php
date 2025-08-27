@@ -112,6 +112,7 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('PULSE_MYSQL_ATTR_SSL_CA'),
             ]) : [],
