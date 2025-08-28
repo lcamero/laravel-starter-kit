@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
@@ -13,15 +15,15 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('dashboard', 'dashboard')
+        ->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
+    Volt::route('settings/two-factor', 'settings.two-factor')->name('settings.two-factor');
 });
 
 require __DIR__.'/auth.php';

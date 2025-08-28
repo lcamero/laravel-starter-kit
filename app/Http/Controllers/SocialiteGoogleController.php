@@ -10,17 +10,24 @@ class SocialiteGoogleController extends Controller
 {
     public function __invoke()
     {
-        $user = Socialite::driver('google')->user();
+        $socialiteUser = Socialite::driver('google')->user();
 
         $user = User::updateOrCreate([
-            'email' => $user->email,
+            'email' => $socialiteUser->email,
         ], [
-            'name' => $user->name,
-            'email' => $user->email,
-            'google_id' => $user->id,
-            'avatar' => $user->avatar,
+            'name' => $socialiteUser->name,
+            'email' => $socialiteUser->email,
+            'google_id' => $socialiteUser->id,
+            'avatar' => $socialiteUser->avatar,
             'email_verified_at' => now(),
         ]);
+
+        if ($user->two_factor_secret) {
+            session()->put('login.id', $user->id);
+            session()->put('login.remember', true);
+
+            return redirect()->route('two-factor.login');
+        }
 
         Auth::login($user);
 

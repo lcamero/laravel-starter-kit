@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
+use Laravel\Fortify\Contracts\TwoFactorAuthenticationProvider;
 use Livewire\Volt\Component;
 
-new class extends Component {
+new class extends Component
+{
     public string $current_password = '';
     public string $password = '';
     public string $password_confirmation = '';
@@ -14,9 +16,12 @@ new class extends Component {
     // Support Socialite features by allowing an empty password
     public bool $passwordIsSet = false;
 
+    public bool $confirmingPasswordWith2fa = false;
+    public string $two_factor_code = '';
+
     public function mount()
     {
-        $this->passwordIsSet = !empty(auth()->user()->password);
+        $this->passwordIsSet = ! empty(auth()->user()->password);
     }
 
     /**
@@ -24,17 +29,17 @@ new class extends Component {
      */
     public function updatePassword(): void
     {
+        $user = Auth::user();
+        $twoFactorEnabled = $user->two_factor_secret && ! is_null($user->two_factor_confirmed_at);
+
+        // Validate passwords
         try {
-            // Conditional validation based on whether password is already set
             $rules = [
                 'password' => ['required', 'string', Password::defaults(), 'confirmed'],
             ];
-
-            // Only require current password validation if user already has a password
             if ($this->passwordIsSet) {
                 $rules['current_password'] = ['required', 'string', 'current_password'];
             }
-
             $validated = $this->validate($rules);
         } catch (ValidationException $e) {
             $this->reset('current_password', 'password', 'password_confirmation');
@@ -42,16 +47,48 @@ new class extends Component {
             throw $e;
         }
 
-        Auth::user()->update([
-            'password' => Hash::make($validated['password']),
-        ]);
+        if ($twoFactorEnabled) {
+            if ($this->confirmingPasswordWith2fa) {
+                // 2FA confirmation step
+                $this->validate(['two_factor_code' => ['required', 'string']]);
 
-        $this->reset('current_password', 'password', 'password_confirmation');
+                $provider = app(TwoFactorAuthenticationProvider::class);
+                if (! $provider->verify(decrypt($user->two_factor_secret), $this->two_factor_code)) {
+                    throw ValidationException::withMessages([
+                        'two_factor_code' => [__('The provided two factor authentication code was invalid.')],
+                    ]);
+                }
 
-        // Update the passwordIsSet flag since user now has a password
-        $this->passwordIsSet = true;
+                // 2FA code is valid. Proceed with password update.
+                $user->update([
+                    'password' => Hash::make($validated['password']),
+                ]);
 
-        $this->dispatch('password-updated');
+                $this->reset('current_password', 'password', 'password_confirmation', 'two_factor_code');
+                $this->confirmingPasswordWith2fa = false;
+                $this->passwordIsSet = true;
+                $this->dispatch('password-updated');
+
+            } else {
+                // 2FA is enabled, but we haven't asked for the code yet.
+                $this->confirmingPasswordWith2fa = true;
+            }
+        } else {
+            // No 2FA, just update the password.
+            $user->update([
+                'password' => Hash::make($validated['password']),
+            ]);
+            $this->reset('current_password', 'password', 'password_confirmation');
+            $this->passwordIsSet = true;
+            $this->dispatch('password-updated');
+        }
+    }
+
+    public function cancelPasswordUpdateConfirmation(): void
+    {
+        $this->confirmingPasswordWith2fa = false;
+        $this->reset('current_password', 'password', 'password_confirmation', 'two_factor_code');
+        $this->resetErrorBag('two_factor_code');
     }
 }; ?>
 
@@ -82,6 +119,7 @@ new class extends Component {
                 type="password"
                 required
                 autocomplete="new-password"
+                viewable
             />
             
             <flux:input
@@ -90,12 +128,39 @@ new class extends Component {
                 type="password"
                 required
                 autocomplete="new-password"
+                viewable
             />
 
+            @if ($confirmingPasswordWith2fa)
+                <div class="mt-6 space-y-6">
+                    <flux:callout icon="exclamation-triangle" color="amber" :heading="__('Please confirm access to your account by entering the authentication code provided by your authenticator application.')"></flux:callout>
+                    <flux:input
+                        wire:model="two_factor_code"
+                        wire:keydown.enter="updatePassword"
+                        :label="__('Two-Factor Code')"
+                        type="text"
+                        required
+                        autocomplete="one-time-code"
+                        autofocus
+                        maxlength="6"
+                    />
+                </div>
+            @endif
+
             <div class="flex items-center gap-4">
-                <div class="flex items-center justify-end">
+                <div class="flex items-center justify-end gap-4">
+                    @if ($confirmingPasswordWith2fa)
+                        <flux:button wire:click.prevent="cancelPasswordUpdateConfirmation">
+                            {{ __('Cancel') }}
+                        </flux:button>
+                    @endif
+
                     <flux:button variant="primary" type="submit" class="w-full">
-                        {{ $passwordIsSet ? __('Update Password') : __('Set Password') }}
+                        @if ($confirmingPasswordWith2fa)
+                            {{ __('Confirm') }}
+                        @else
+                            {{ $passwordIsSet ? __('Update Password') : __('Set Password') }}
+                        @endif
                     </flux:button>
                 </div>
 
