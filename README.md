@@ -13,6 +13,11 @@ This starter kit comes pre-configured with a modern Laravel 12 stack, including 
 
 It can be paired with Laravel's Telescope package to gain insight of your application.
 
+### Laravel Fortify
+[Laravel Fortify](https://laravel.com/docs/12.x/fortify) is a frontend agnostic authentication backend for Laravel. It provides features like two-factor authentication, registration, password reset, and email verification, giving you full control over the user interface.
+
+This package was added mainly to enable 2 Factor Authentication (2FA) to the application and integrate it into the register/login flows, including the Laravel Socialite implementation.
+
 ### Laravel Horizon
 [Laravel Horizon](https://laravel.com/docs/12.x/horizon) provides a beautiful dashboard and code-driven configuration for managing [Redis](https://redis.io/) queues.  
 It allows you to monitor throughput, runtime, job retries, and failures in real-time.
