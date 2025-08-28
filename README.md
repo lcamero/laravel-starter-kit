@@ -60,6 +60,22 @@ After deployment:
 php artisan pulse:restart
 ```
 
+### Laravel Sanctum
+[Laravel Sanctum](https://laravel.com/docs/12.x/sanctum) provides a featherweight authentication system for SPAs (single-page applications), mobile applications, and simple, token-based APIs. It allows your application to issue API tokens to your users, which may be used to authenticate API requests.
+
+This starter kit has configured a Sanctum service that allows you to define "abilities" that can be assigned to tokens so you're free to configure them for your app. These abilities act as scopes, restricting the actions a token can perform.
+
+The abilities for this application are defined in the `app/Providers/Auth/SanctumServiceProvider.php` file, on the `boot()` method. By default, no abilities are available to be assigned, but you can uncomment the code to get started:
+
+```php
+app(Sanctum::class)->defineAbilities([
+    // 'create',
+    // 'read',
+    // 'update',
+    // 'delete',
+]);
+```
+
 ### Laravel Socialite
 [Laravel Socialite](https://laravel.com/docs/12.x/socialite) provides an expressive, fluent interface for OAuth authentication with popular providers like Google, Facebook, GitHub, and more.  
 

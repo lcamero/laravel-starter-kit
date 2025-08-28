@@ -27,7 +27,7 @@ Route::middleware('guest')->group(function () {
         ->name('socialite.callback.google');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Volt::route('verify-email', 'auth.verify-email')
         ->name('verification.notice');
 
