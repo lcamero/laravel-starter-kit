@@ -1,17 +1,12 @@
-# Starter Kit
+# Laravel Starter Kit
 
 This starter kit comes pre-configured with a modern Laravel 12 stack, including [Livewire v3](https://livewire.laravel.com/) and [Livewire Flux Pro](https://fluxui.dev), along with a curated set of official Laravel packages and developer tooling.
 
+It is created on top of the official [Larave Livewire Starter Kit](https://github.com/laravel/livewire-starter-kit) and has been extended and modified to suit custom requirements.
 
 ## Packages
 
-### Laravel Boost
-[Laravel Boost](https://github.com/laravel/boost) accelerates AI-assisted development by providing the essential context and structure that AI needs to generate high-quality, Laravel-specific code.
-
-### Laravel Debugbar
-[Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar) is a development package that adds a toolbar to your application, giving you real-time insights into queries, routes, views, logs, and performance. It helps you debug and profile your Laravel app directly in the browser. 
-
-It can be paired with Laravel's Telescope package to gain insight of your application.
+### Production
 
 ### Laravel Fortify
 [Laravel Fortify](https://laravel.com/docs/12.x/fortify) is a frontend agnostic authentication backend for Laravel. It provides features like two-factor authentication, registration, password reset, and email verification, giving you full control over the user interface.
@@ -26,24 +21,8 @@ It allows you to monitor throughput, runtime, job retries, and failures in real-
 php artisan horizon
 ```
 
-### Laravel Pail
-[Laravel Pail](https://laravel.com/docs/12.x/pail) is a developer tool for tailing your application logs directly from the terminal.  
-It provides better insight into application events and errors without having to manually read log files.
-
-```bash
-php artisan pail
-```
-
 ### Laravel Pennant
 [Laravel Pennant](https://laravel.com/docs/12.x/pennant) is a simple and light-weight feature flag package. Feature flags enable you to incrementally roll out new application features with confidence, A/B test new interface designs, complement a trunk-based development strategy, and much more.
-
-### Laravel Pint
-[Laravel Pint](https://laravel.com/docs/12.x/pint) is an opinionated PHP code style fixer for Laravel projects.  
-It helps enforce consistent code formatting using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer) under the hood.
-
-```bash
-./vendor/bin/pint
-```
 
 ### Laravel Pulse
 [Laravel Pulse](https://laravel.com/docs/12.x/pulse) is a lightweight, real-time application performance monitoring tool.
@@ -58,6 +37,12 @@ php artisan pulse:check
 After deployment:
 ```bash
 php artisan pulse:restart
+```
+
+You can disable Laravel Pulse by adding the following environment variable to your `.env` file:
+
+```env
+PULSE_ENABLED=false
 ```
 
 ### Laravel Sanctum
@@ -92,6 +77,32 @@ GOOGLE_CLIENT_SECRET="XXXXXXX"
 GOOGLE_REDIRECT_URL="http://starter-kit.com"
 ```
 
+### Development
+
+### Laravel Boost
+[Laravel Boost](https://github.com/laravel/boost) accelerates AI-assisted development by providing the essential context and structure that AI needs to generate high-quality, Laravel-specific code.
+
+### Laravel Debugbar
+[Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar) is a development package that adds a toolbar to your application, giving you real-time insights into queries, routes, views, logs, and performance. It helps you debug and profile your Laravel app directly in the browser. 
+
+It can be paired with Laravel's Telescope package to gain insight of your application.
+
+### Laravel Pail
+[Laravel Pail](https://laravel.com/docs/12.x/pail) is a developer tool for tailing your application logs directly from the terminal.  
+It provides better insight into application events and errors without having to manually read log files.
+
+```bash
+php artisan pail
+```
+
+### Laravel Pint
+[Laravel Pint](https://laravel.com/docs/12.x/pint) is an opinionated PHP code style fixer for Laravel projects.  
+It helps enforce consistent code formatting using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer) under the hood.
+
+```bash
+./vendor/bin/pint
+```
+
 ### Laravel Telescope
 [Laravel Telescope](https://laravel.com/docs/12.x/telescope) is a debugging and monitoring assistant for your application.  
 It provides insight into requests, exceptions, database queries, queued jobs, mail, notifications, cache operations, and more through a clean UI.
@@ -99,6 +110,12 @@ It provides insight into requests, exceptions, database queries, queued jobs, ma
 ```bash
 php artisan telescope:install
 php artisan migrate
+```
+
+You can disable Laravel Telescope by adding the following environment variable to your `.env` file:
+
+```env
+TELESCOPE_ENABLED=false
 ```
 
 ### PestPHP
