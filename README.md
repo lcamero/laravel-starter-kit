@@ -4,6 +4,8 @@ This starter kit comes pre-configured with a modern Laravel 12 stack, including 
 
 It is created on top of the official [Laravel Livewire Starter Kit](https://github.com/laravel/livewire-starter-kit) and has been extended and modified to suit custom requirements.
 
+---
+
 ## Steps to install
 
 You may get started by running the following command
@@ -23,6 +25,103 @@ You will be asked if you wish to install a Flux UI pro license after the project
 ```bash
 php artisan flux:activate
 ```
+
+---
+
+## Setup
+
+You should be able to start developing right away without making any modifications, but you may want to tune certain settings depending on the needs of your project. All packages that come pre-installed are enabled by default, so if you wish to manage some of them you may follow these instructions.
+
+### Enable / Disable Two-Factor Authentication (2FA)
+
+This starter kit uses [Laravel Fortify](https://laravel.com/docs/12.x/fortify) to manage two-factor authentication, which is enabled by default. If you wish to enable/disable it in your project set the following environment variable in your `.env` file
+
+```env
+TWO_FACTOR_AUTH_ENABLED=true
+# or
+TWO_FACTOR_AUTH_ENABLED=false
+```
+
+This will hide the settings views and skip the redirects in the login flow.
+
+### Configure API Tokens Feature
+
+This starter kit uses [Laravel Sanctum](https://laravel.com/docs/12.x/sanctum) for API Token management, which is enabled by default.
+
+Within the `Providers/Auth/SanctumServiceProvider.php` file you may enable or disable the feature. 
+
+Also, you're able to configure the available and default permissions that exist for your application.
+
+```php
+Sanctum::enableApiTokens();
+// or
+Sanctum::enableApiTokens(false);
+
+// Permission that will be selected for new tokens
+Sanctum::defaultPermissions([
+    'read',
+]);
+
+// Available permissions for your tokens
+Sanctum::permissions([
+    'create',
+    'read',
+    'update',
+    'delete',
+]);
+```
+
+### Enable / Disable Laravel Socialite
+
+This starter kit uses [Laravel Socialite](https://laravel.com/docs/12.x/socialite) to handle OAuth authentication with different providers.
+
+Currently the following providers are available, as long as you configure the provide the environment keys:
+
+- Google
+
+To disable this authentication method, remove or comment the appropriate section within `config/services.php`
+
+```php
+// 'google' => [
+//     'client_id' => env('GOOGLE_CLIENT_ID'),
+//     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+//     'redirect' => env('GOOGLE_REDIRECT_URL').'/auth/google/callback',
+// ],
+```
+
+More providers can be configured depending on the project needs, the starter kit just comes with the boilerplate for Google at this time.
+
+### Enable / Disable Laravel Pulse
+
+Set the following environment variable in your `.env` file
+
+```env
+PULSE_ENABLED=true
+# or
+PULSE_ENABLED=false
+```
+
+### Enable / Disable Laravel Telescope
+
+Set the following environment variable in your `.env` file
+
+```env
+TELESCOPE_ENABLED=true
+# or
+TELESCOPE_ENABLED=false
+```
+
+### Enable / Disable Laravel Debugbar
+
+Set the following environment variable in your `.env` file
+
+```env
+APP_DEBUG=true
+# or
+APP_DEBUG=false
+```
+
+---
 
 ## Packages Included
 
@@ -75,12 +174,28 @@ This starter kit has configured a Sanctum service that allows you to define "abi
 The abilities for this application are defined in the `app/Providers/Auth/SanctumServiceProvider.php` file, on the `boot()` method. By default, no abilities are available to be assigned, but you can uncomment the code to get started:
 
 ```php
-app(Sanctum::class)->defineAbilities([
+Sanctum::permissions([
     // 'create',
     // 'read',
     // 'update',
     // 'delete',
 ]);
+```
+
+You may configure default permissions that should be added to all new entities by calling the `defaultPermissions` method.
+
+```php
+Sanctum::defaultPermissions([
+    // 'read',
+]);
+```
+
+If you wish to enable/disable the API Tokens feature you may configure the following in the service provider
+
+```php
+Sanctum::enableApiTokens();
+// or
+Sanctum::enableApiTokens(false);
 ```
 
 ### Laravel Scout
@@ -133,6 +248,12 @@ GOOGLE_REDIRECT_URL="http://starter-kit.com"
 [Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar) is a development package that adds a toolbar to your application, giving you real-time insights into queries, routes, views, logs, and performance. It helps you debug and profile your Laravel app directly in the browser. 
 
 It can be paired with Laravel's Telescope package to gain insight of your application.
+
+You may disable this package by setting the following environment variable in your `.env` file
+
+```env
+APP_DEBUG=false
+```
 
 ### Laravel Pail
 [Laravel Pail](https://laravel.com/docs/12.x/pail) is a developer tool for tailing your application logs directly from the terminal.  
