@@ -79,10 +79,10 @@
                         @if (Route::has('horizon.index'))
                         <flux:menu.item :href="route('horizon.index')" target="_blank" icon="circle-stack">{{ __('Horizon') }}</flux:menu.item>
                         @endif
-                        @if (Route::has('telescope'))
+                        @if (Route::has('telescope') && config('telescope.enabled'))
                         <flux:menu.item :href="route('telescope')" target="_blank" icon="lifebuoy">{{ __('Telescope') }}</flux:menu.item>
                         @endif
-                        @if (Route::has('pulse'))
+                        @if (Route::has('pulse') && config('pulse.enabled'))
                         <flux:menu.item :href="route('pulse')" target="_blank" icon="heart">{{ __('Pulse') }}</flux:menu.item>
                         @endif
                     </flux:menu.radio.group>
