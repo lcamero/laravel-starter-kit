@@ -37,6 +37,7 @@
                     :name="auth()->user()->name"
                     :initials="auth()->user()->initials()"
                     icon:trailing="chevrons-up-down"
+                    :avatar="auth()->user()->avatar"
                 />
 
                 <flux:menu class="w-[220px]">
@@ -109,6 +110,7 @@
                 <flux:profile
                     :initials="auth()->user()->initials()"
                     icon-trailing="chevron-down"
+                    :avatar="auth()->user()->avatar"
                 />
 
                 <flux:menu>
