@@ -26,6 +26,14 @@ You will be asked if you wish to install a Flux UI pro license after the project
 php artisan flux:activate
 ```
 
+Lastly, a quick way to fire up the configured services and start building is to run the following command:
+
+```bash
+composer dev
+```
+
+This will run vite to serve your asset and listen for changes (`npm run dev`), run Laravel Pail to tail logs (`php artisan pail`) and launch Laravel Horizon to manage your queues (`php artisan horizon`).
+
 ---
 
 ## Setup
