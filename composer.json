@@ -20,7 +20,6 @@
         "laravel/socialite": "^5.23",
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.1.1",
-        "livewire/flux-pro": "^2.2",
         "livewire/volt": "^1.7.0"
     },
     "require-dev": {
@@ -62,7 +61,8 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "@php artisan migrate --graceful --ansi"
+            "@php artisan migrate --graceful --ansi",
+            "@php artisan app:install"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",

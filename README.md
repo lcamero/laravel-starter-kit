@@ -1,10 +1,32 @@
 # Laravel Starter Kit
 
-This starter kit comes pre-configured with a modern Laravel 12 stack, including [Livewire v3](https://livewire.laravel.com/) and [Livewire Flux Pro](https://fluxui.dev), along with a curated set of official Laravel packages and developer tooling.
+This starter kit comes pre-configured with a modern Laravel 12 stack, including [Livewire v3](https://livewire.laravel.com/) and [Livewire Flux](https://fluxui.dev), along with a curated set of Laravel packages and developer tooling.
 
-It is created on top of the official [Larave Livewire Starter Kit](https://github.com/laravel/livewire-starter-kit) and has been extended and modified to suit custom requirements.
+It is created on top of the official [Laravel Livewire Starter Kit](https://github.com/laravel/livewire-starter-kit) and has been extended and modified to suit custom requirements.
 
-## Packages
+## Steps to install
+
+You may get started by running the following command
+
+```bash
+laravel new my-app --using=lcamero/laravel-starter-kit
+```
+
+Or, if you prefer, use the composer create-project command instead
+
+```bash
+composer create-project lcamero/laravel-starter-kit
+```
+
+You will be asked if you wish to install a Flux UI pro license after the project is created so it configures it right away. Otherwise, you may activate it later with the following command
+
+```bash
+php artisan flux:activate
+```
+
+## Packages Included
+
+A series of packages have been pre-installed and configured to solve common needs in projects. Here's a breakdown of what's included:
 
 ### Production
 
