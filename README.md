@@ -1,6 +1,6 @@
 # Laravel Starter Kit
 
-This starter kit comes pre-configured with a modern Laravel 12 stack, including [Livewire v3](https://livewire.laravel.com/) and [Livewire Flux](https://fluxui.dev), along with a curated set of Laravel packages and developer tooling.
+This [starter kit](https://github.com/lcamero/laravel-starter-kit) comes pre-configured with a modern Laravel 12 stack, including [Livewire v3](https://livewire.laravel.com/) and [Livewire Flux](https://fluxui.dev), along with a curated set of Laravel packages and developer tooling.
 
 It is created on top of the official [Laravel Livewire Starter Kit](https://github.com/laravel/livewire-starter-kit) and has been extended and modified to suit custom requirements.
 

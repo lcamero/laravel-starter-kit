@@ -20,6 +20,7 @@
             <flux:spacer />
 
             <flux:navbar class="me-1.5 space-x-0.5 rtl:space-x-reverse py-0!">
+                @if (app()->isLocal())
                 <flux:tooltip :content="__('Laravel Documentation')" position="bottom">
                     <flux:navbar.item
                         class="h-10 max-lg:hidden [&>div>svg]:size-5"
@@ -29,6 +30,7 @@
                         label="Laravel Documentation"
                     />
                 </flux:tooltip>
+                @endif
             </flux:navbar>
 
             <!-- Desktop User Menu -->
@@ -118,9 +120,11 @@
             <flux:spacer />
 
             <flux:navlist variant="outline">
+                @if (app()->isLocal())
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs" target="_blank">
                 {{ __('Documentation') }}
                 </flux:navlist.item>
+                @endif
             </flux:navlist>
         </flux:sidebar>
 
