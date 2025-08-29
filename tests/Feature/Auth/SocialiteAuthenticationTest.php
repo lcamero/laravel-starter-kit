@@ -7,7 +7,7 @@ use Laravel\Socialite\Two\User as SocialiteUser;
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 test('a user without 2fa can log in via google and is redirected to the dashboard', function () {
-    $socialiteUser = new SocialiteUser();
+    $socialiteUser = new SocialiteUser;
     $socialiteUser->id = '12345';
     $socialiteUser->name = 'John Doe';
     $socialiteUser->email = 'john.doe@example.com';
@@ -26,7 +26,7 @@ test('a user with 2fa enabled is redirected to the two-factor challenge page', f
         'two_factor_secret' => 'test-secret',
     ]);
 
-    $socialiteUser = new SocialiteUser();
+    $socialiteUser = new SocialiteUser;
     $socialiteUser->id = '12345';
     $socialiteUser->name = $user->name;
     $socialiteUser->email = $user->email;

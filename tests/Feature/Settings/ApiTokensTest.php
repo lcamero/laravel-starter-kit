@@ -1,9 +1,24 @@
 <?php
 
+use App\Auth\Sanctum;
 use App\Models\User;
 use Livewire\Livewire;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+
+beforeEach(function () {
+    Sanctum::enableApiTokens();
+    Sanctum::permissions([]);
+    Sanctum::defaultPermissions([]);
+});
+
+test('api tokens settings screen cannot be rendered if sanctum is disabled', function () {
+    Sanctum::enableApiTokens(false);
+    
+    $this->actingAs($user = User::factory()->create());
+    
+    $this->get(route('settings.api-tokens'))->assertStatus(404);
+});
 
 test('api tokens can be created', function () {
     $this->actingAs($user = User::factory()->create());
@@ -22,7 +37,7 @@ test('api tokens can be created with abilities', function () {
 
     Livewire::test('settings.api-tokens')
         ->set('tokenName', 'Test Token')
-        ->set('abilities', ['read', 'create'])
+        ->set('permissions', ['read', 'create'])
         ->call('createToken');
 
     expect($user->fresh()->tokens)->toHaveCount(1);

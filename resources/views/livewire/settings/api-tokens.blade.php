@@ -1,13 +1,13 @@
 <?php
 
-use App\Auth\Sanctum\Sanctum;
+use \App\Auth\Sanctum;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Volt\Component;
 use Illuminate\Support\Collection;
 
 new class extends Component {
     public string $tokenName = '';
-    public array $abilities = [];
+    public array $permissions = [];
     public ?string $plainTextToken = null;
     public bool $showTokenModal = false;
     public ?int $tokenToDeleteId = null;
@@ -16,25 +16,34 @@ new class extends Component {
 
     public function mount(): void
     {
+        if (! \App\Auth\Sanctum::apiTokensEnabled()) {
+            abort(404);
+        }
+
         $this->tokens = Auth::user()->tokens;
+        $this->permissions = Sanctum::getDefaultPermissions();
     }
 
     public function createToken(): void
     {
+        if (! Sanctum::apiTokensEnabled()) {
+            return;
+        }
+
         $this->validate([
             'tokenName' => ['required', 'string', 'max:255'],
-            'abilities' => ['nullable', 'array'],
-            'abilities.*' => ['string'],
+            'permissions' => ['nullable', 'array'],
+            'permissions.*' => ['string'],
         ]);
 
         $this->plainTextToken = Auth::user()->createToken(
             $this->tokenName,
-            empty($this->abilities) ? ['*'] : $this->abilities
+            empty($this->permissions) ? ['*'] : $this->permissions
         )->plainTextToken;
 
         $this->tokens = Auth::user()->tokens;
         $this->tokenName = '';
-        $this->abilities = [];
+        $this->permissions = [];
         $this->showTokenModal = true;
     }
 
@@ -46,6 +55,10 @@ new class extends Component {
 
     public function deleteToken(): void
     {
+        if (! Sanctum::apiTokensEnabled()) {
+            return;
+        }
+
         if (! $this->tokenToDeleteId) {
             return;
         }
@@ -62,6 +75,7 @@ new class extends Component {
     @include('partials.settings-heading')
 
     <x-settings.layout :heading="__('API Tokens')" :subheading="__('Manage API tokens for your account.')">
+        @if (Sanctum::apiTokensEnabled())
         <div class="my-6 w-full space-y-6">
             <div class="flex items-center justify-between">
                 <flux:heading level="3">{{ __('Create API Token') }}</flux:heading>
@@ -70,14 +84,14 @@ new class extends Component {
             <div class="grid grid-cols-1 gap-y-6 bg-zinc-100 dark:bg-zinc-700 p-4 rounded-md">
                 <flux:input wire:model="tokenName" :label="__('Token Name')" type="text" required />
 
-                @if (app(App\Auth\Sanctum\Sanctum::class)->abilities())
-                <flux:label>{{ __('Abilities') }}</flux:label>
+                @if (Sanctum::getPermissions())
+                <flux:label>{{ __('Permissions') }}</flux:label>
                 <flux:checkbox.group class="">
                     <flux:checkbox.all :label="__('Check all')" />
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-4">
-                        @foreach (app(App\Auth\Sanctum\Sanctum::class)->abilities() as $ability)
+                        @foreach (Sanctum::getPermissions() as $permission)
                             <label class="flex items-center">
-                                <flux:checkbox wire:model="abilities" :value="$ability" :label="$ability"/>
+                                <flux:checkbox wire:model="permissions" :value="$permission" :label="$permission"/>
                             </label>
                         @endforeach
                     </div>
@@ -153,9 +167,9 @@ new class extends Component {
                             </flux:heading>
                             
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-4 mt-2">
-                                @foreach ($token->abilities as $ability)
+                                @foreach ($token->abilities as $permission)
                                     <span class="text-xs">
-                                        {{ $ability }}
+                                        {{ $permission }}
                                     </span>
                                 @endforeach
                             </div>
@@ -167,5 +181,8 @@ new class extends Component {
                 @endforelse
             </div>
         </div>
+        @else
+        <flux:callout icon="exclamation-triangle" color="amber" :heading="__('API Token Management is disabled.')"></flux:callout>
+        @endif
     </x-settings.layout>
 </section>

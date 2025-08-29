@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Throwable;
+
 use function Laravel\Prompts\confirm;
 
 class InstallCommand extends Command

@@ -4,7 +4,9 @@
             <flux:navlist.item :href="route('settings.profile')" wire:navigate>{{ __('Profile') }}</flux:navlist.item>
             <flux:navlist.item :href="route('settings.password')" wire:navigate>{{ __('Password') }}</flux:navlist.item>
             <flux:navlist.item :href="route('settings.two-factor')" wire:navigate>{{ __('Two-Factor Authentication') }}</flux:navlist.item>
+            @if (\App\Auth\Sanctum::apiTokensEnabled())
             <flux:navlist.item :href="route('settings.api-tokens')" wire:navigate>{{ __('API Tokens') }}</flux:navlist.item>
+            @endif
         </flux:navlist>
     </div>
 

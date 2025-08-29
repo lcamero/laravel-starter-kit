@@ -79,7 +79,7 @@
             return setInterval(draw, 55);
         }
         
-        let matrixInterval = null;
+        var matrixInterval = null;
         
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {

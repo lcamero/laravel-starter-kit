@@ -2,7 +2,7 @@
 
 namespace App\Providers\Auth;
 
-use App\Auth\Sanctum\Sanctum;
+use App\Auth\Sanctum;
 use Illuminate\Support\ServiceProvider;
 
 class SanctumServiceProvider extends ServiceProvider
@@ -12,9 +12,7 @@ class SanctumServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(Sanctum::class, function () {
-            return new Sanctum;
-        });
+        //
     }
 
     /**
@@ -22,7 +20,13 @@ class SanctumServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        app(Sanctum::class)->defineAbilities([
+        Sanctum::enableApiTokens();
+
+        Sanctum::defaultPermissions([
+            // 'read',
+        ]);
+
+        Sanctum::permissions([
             // 'create',
             // 'read',
             // 'update',

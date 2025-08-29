@@ -14,7 +14,7 @@ use Laravel\Scout\Searchable;
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable, Searchable;
+    use HasApiTokens, HasFactory, Notifiable, Searchable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that should be hidden for serialization.
