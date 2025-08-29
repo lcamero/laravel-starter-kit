@@ -61,6 +61,31 @@ app(Sanctum::class)->defineAbilities([
 ]);
 ```
 
+### Laravel Scout
+[Laravel Scout](https://laravel.com/docs/12.x/scout) provides a simple, driver-based solution for adding full-text search to your Eloquent models. Using model observers, Scout will automatically keep your search indexes in sync with your Eloquent records.
+
+You can import your models using the `scout:import` command:
+```bash
+php artisan scout:import "App\Models\User"
+```
+
+For large datasets, you can queue the import operation for better performance:
+```bash
+php artisan scout:queue-import "App\Models\User" --chunk=500
+```
+
+To remove all of a model's records from the search index, you can use the `scout:flush` command:
+```bash
+php artisan scout:flush "App\Models\User"
+```
+
+This starter kit is configured to use the `database` driver for Scout, which uses "where like" clauses and full text indexes (if configured per column) to filter results from your existing database. You can change the driver and queue settings in your `.env` file:
+
+```env
+SCOUT_DRIVER=database
+SCOUT_QUEUE=true
+```
+
 ### Laravel Socialite
 [Laravel Socialite](https://laravel.com/docs/12.x/socialite) provides an expressive, fluent interface for OAuth authentication with popular providers like Google, Facebook, GitHub, and more.  
 
