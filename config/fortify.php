@@ -64,6 +64,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Two Factor Authentication Enabled
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify if two factor authentication is enabled for your
+    | application. By default, this is enabled, but you may disable it
+    | here if you do not want to use this feature in your project.
+    |
+    */
+
+    'two_factor_authentication_enabled' => env('TWO_FACTOR_AUTH_ENABLED', true),
+
+    /*
+    |--------------------------------------------------------------------------
     | Home Path
     |--------------------------------------------------------------------------
     |
@@ -143,17 +156,17 @@ return [
     |
     */
 
-    'features' => [
+    'features' => array_filter([
         Features::registration(),
         Features::resetPasswords(),
         Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
-        Features::twoFactorAuthentication([
+        env('TWO_FACTOR_AUTH_ENABLED', true) ? Features::twoFactorAuthentication([
             'confirm' => true,
             'confirmPassword' => true,
             // 'window' => 0,
-        ]),
-    ],
+        ]) : null,
+    ]),
 
 ];

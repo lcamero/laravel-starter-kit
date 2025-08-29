@@ -26,6 +26,10 @@ new class extends Component {
 
     public function enableTwoFactorAuthentication(EnableTwoFactorAuthentication $enable): void
     {
+        if (!config('fortify.two_factor_authentication_enabled')) {
+            return;
+        }
+
         $enable(Auth::user());
 
         $this->showingQrCode = true;
@@ -52,6 +56,10 @@ new class extends Component {
 
     public function handleRecoveryConfirmation(TwoFactorAuthenticationProvider $provider, GenerateNewRecoveryCodes $generate): void
     {
+        if (!config('fortify.two_factor_authentication_enabled')) {
+            return;
+        }
+
         $this->validate(['recoveryCodeForConfirmation' => ['required', 'string']]);
 
         $this->ensureValidTwoFactorCode($provider, $this->recoveryCodeForConfirmation, 'recoveryCodeForConfirmation');
@@ -77,6 +85,10 @@ new class extends Component {
 
     public function confirmTwoFactorAuthentication(ConfirmTwoFactorAuthentication $confirm): void
     {
+        if (!config('fortify.two_factor_authentication_enabled')) {
+            return;
+        }
+
         $this->validateOnly('code', ['code' => 'required']);
 
         $confirm(Auth::user(), $this->code);
@@ -90,6 +102,10 @@ new class extends Component {
 
     public function disableTwoFactorAuthentication(DisableTwoFactorAuthentication $disable, TwoFactorAuthenticationProvider $provider): void
     {
+        if (!config('fortify.two_factor_authentication_enabled')) {
+            return;
+        }
+
         if ($this->confirming2faDisable) {
             $this->validate(['two_factor_code_for_disable' => ['required', 'string']]);
 
@@ -146,6 +162,7 @@ new class extends Component {
 <section class="w-full">
     @include('partials.settings-heading')
     <x-settings.layout :heading="__('Two Factor Authentication')" :subheading="__('Add additional security to your account using two factor authentication.')">
+        @if (config('fortify.features.two-factor-authentication'))
         <div class="space-y-6">
             <div class="max-w-xl">
                 @if (!Auth::user()->two_factor_confirmed_at)
@@ -305,5 +322,8 @@ new class extends Component {
                 @endif
             </div>
         </div>
+    @else
+    <flux:callout icon="exclamation-triangle" color="amber" :heading="__('Two-Factor Authentication is disabled.')"></flux:callout>
+    @endif
     </x-settings.layout>
 </section>

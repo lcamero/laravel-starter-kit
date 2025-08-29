@@ -33,7 +33,10 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-        Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
+
+        if (config('fortify.two_factor_authentication_enabled')) {
+            Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
+        }
 
         // Custom view bindings
         Fortify::loginView(function () {
@@ -60,9 +63,11 @@ class FortifyServiceProvider extends ServiceProvider
             return view('livewire.auth.confirm-password');
         });
 
-        Fortify::twoFactorChallengeView(function () {
-            return view('auth.two-factor-challenge');
-        });
+        if (config('fortify.features.two-factor-authentication', true)) {
+            Fortify::twoFactorChallengeView(function () {
+                return view('auth.two-factor-challenge');
+            });
+        }
 
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
@@ -70,8 +75,10 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($throttleKey);
         });
 
-        RateLimiter::for('two-factor', function (Request $request) {
-            return Limit::perMinute(5)->by($request->session()->get('login.id'));
-        });
+        if (config('fortify.two_factor_authentication_enabled')) {
+            RateLimiter::for('two-factor', function (Request $request) {
+                return Limit::perMinute(5)->by($request->session()->get('login.id'));
+            });
+        }
     }
 }

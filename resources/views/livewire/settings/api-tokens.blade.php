@@ -16,10 +16,6 @@ new class extends Component {
 
     public function mount(): void
     {
-        if (! \App\Auth\Sanctum::apiTokensEnabled()) {
-            abort(404);
-        }
-
         $this->tokens = Auth::user()->tokens;
         $this->permissions = Sanctum::getDefaultPermissions();
     }

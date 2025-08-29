@@ -40,3 +40,11 @@ test('a user with 2fa enabled is redirected to the two-factor challenge page', f
     $this->assertEquals($user->id, session()->get('login.id'));
     $response->assertRedirect(route('two-factor.login'));
 });
+
+test('2fa settings screen cannot be rendered if it is disabled', function () {
+    config()->set('fortify.two_factor_authentication_enabled', false);
+    
+    $this->actingAs($user = User::factory()->create());
+    
+    $this->get(route('settings.two-factor'))->assertSee(__('Two-Factor Authentication is disabled.'));
+});
