@@ -20,13 +20,15 @@
             <flux:spacer />
 
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
-                </flux:navlist.item>
+                @if (app()->isLocal())
+                    <flux:navlist.item icon="folder-git-2" href="https://github.com/lcamero/laravel-starter-kit" target="_blank">
+                    {{ __('Repository') }}
+                    </flux:navlist.item>
 
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
-                </flux:navlist.item>
+                    <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs" target="_blank">
+                    {{ __('Documentation') }}
+                    </flux:navlist.item>
+                @endif
             </flux:navlist>
 
             <!-- Desktop User Menu -->
@@ -59,8 +61,30 @@
 
                     <flux:menu.separator />
 
+                    <flux:radio.group x-data variant="segmented" x-model="$flux.appearance" class="my-2">
+                        <flux:radio value="light" icon="sun"></flux:radio>
+                        <flux:radio value="dark" icon="moon"></flux:radio>
+                        <flux:radio value="system" icon="computer-desktop"></flux:radio>
+                    </flux:radio.group>
+
+                    <flux:menu.separator />
+
                     <flux:menu.radio.group>
                         <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                    </flux:menu.radio.group>
+
+                    <flux:menu.separator />
+
+                    <flux:menu.radio.group>
+                        @if (Route::has('horizon.index'))
+                        <flux:menu.item :href="route('horizon.index')" target="_blank" icon="circle-stack">{{ __('Horizon') }}</flux:menu.item>
+                        @endif
+                        @if (Route::has('telescope') && config('telescope.enabled'))
+                        <flux:menu.item :href="route('telescope')" target="_blank" icon="lifebuoy">{{ __('Telescope') }}</flux:menu.item>
+                        @endif
+                        @if (Route::has('pulse') && config('pulse.enabled'))
+                        <flux:menu.item :href="route('pulse')" target="_blank" icon="heart">{{ __('Pulse') }}</flux:menu.item>
+                        @endif
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
@@ -109,8 +133,30 @@
 
                     <flux:menu.separator />
 
+                    <flux:radio.group x-data variant="segmented" x-model="$flux.appearance" class="my-2">
+                        <flux:radio value="light" icon="sun"></flux:radio>
+                        <flux:radio value="dark" icon="moon"></flux:radio>
+                        <flux:radio value="system" icon="computer-desktop"></flux:radio>
+                    </flux:radio.group>
+
+                    <flux:menu.separator />
+
                     <flux:menu.radio.group>
                         <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                    </flux:menu.radio.group>
+
+                    <flux:menu.separator />
+
+                    <flux:menu.radio.group>
+                        @if (Route::has('horizon.index'))
+                        <flux:menu.item :href="route('horizon.index')" target="_blank" icon="circle-stack">{{ __('Horizon') }}</flux:menu.item>
+                        @endif
+                        @if (Route::has('telescope') && config('telescope.enabled'))
+                        <flux:menu.item :href="route('telescope')" target="_blank" icon="lifebuoy">{{ __('Telescope') }}</flux:menu.item>
+                        @endif
+                        @if (Route::has('pulse') && config('pulse.enabled'))
+                        <flux:menu.item :href="route('pulse')" target="_blank" icon="heart">{{ __('Pulse') }}</flux:menu.item>
+                        @endif
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
