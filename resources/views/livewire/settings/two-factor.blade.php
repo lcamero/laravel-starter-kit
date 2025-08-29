@@ -162,7 +162,7 @@ new class extends Component {
 <section class="w-full">
     @include('partials.settings-heading')
     <x-settings.layout :heading="__('Two Factor Authentication')" :subheading="__('Add additional security to your account using two factor authentication.')">
-        @if (config('fortify.features.two-factor-authentication'))
+        @if (config('fortify.two_factor_authentication_enabled'))
         <div class="space-y-6">
             <div class="max-w-xl">
                 @if (!Auth::user()->two_factor_confirmed_at)
