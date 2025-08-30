@@ -189,9 +189,7 @@ new class extends Component {
                                 </p>
                             @endif
 
-                            <div class="p-4 bg-white dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700">
-                                {!! $this->twoFactorQrCodeSvg() !!}
-                            </div>
+                            {!! $this->twoFactorQrCodeSvg() !!}
 
                             <div class="space-y-2">
                                 <p class="text-sm text-zinc-600 dark:text-zinc-400">

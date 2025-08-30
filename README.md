@@ -83,11 +83,11 @@ Sanctum::permissions([
 
 This starter kit uses [Laravel Socialite](https://laravel.com/docs/12.x/socialite) to handle OAuth authentication with different providers.
 
-Currently the following providers are available, as long as you configure the provide the environment keys:
+Currently the following providers are available, as long as you configure the service and the provide the environment keys:
 
 - Google
 
-To disable this authentication method, remove or comment the appropriate section within `config/services.php`
+To disable this authentication method, remove or comment the appropriate section within `config/services.php`. This will hide the login button for the service.
 
 ```php
 // 'google' => [
@@ -177,9 +177,9 @@ PULSE_ENABLED=false
 ### Laravel Sanctum
 [Laravel Sanctum](https://laravel.com/docs/12.x/sanctum) provides a featherweight authentication system for SPAs (single-page applications), mobile applications, and simple, token-based APIs. It allows your application to issue API tokens to your users, which may be used to authenticate API requests.
 
-This starter kit has configured a Sanctum service that allows you to define "abilities" that can be assigned to tokens so you're free to configure them for your app. These abilities act as scopes, restricting the actions a token can perform.
+This starter kit has configured a Sanctum service that allows you to define permissions that can be assigned to tokens so you're free to configure them for your app. These abilities act as scopes, restricting the actions a token can perform.
 
-The abilities for this application are defined in the `app/Providers/Auth/SanctumServiceProvider.php` file, on the `boot()` method. By default, no abilities are available to be assigned, but you can uncomment the code to get started:
+The abilities for the application should be defined in the `app/Providers/Auth/SanctumServiceProvider.php` file, on the `boot()` method. By default, no abilities are available to be assigned, but you can uncomment the code to get started:
 
 ```php
 Sanctum::permissions([
@@ -190,7 +190,7 @@ Sanctum::permissions([
 ]);
 ```
 
-You may configure default permissions that should be added to all new entities by calling the `defaultPermissions` method.
+You may configure default permissions that should be added to all new tokens by calling the `defaultPermissions` method.
 
 ```php
 Sanctum::defaultPermissions([
@@ -198,7 +198,7 @@ Sanctum::defaultPermissions([
 ]);
 ```
 
-If you wish to enable/disable the API Tokens feature you may configure the following in the service provider
+Lastly, if you wish to enable/disable the API Tokens feature you may configure the following in the service provider
 
 ```php
 Sanctum::enableApiTokens();
@@ -209,7 +209,16 @@ Sanctum::enableApiTokens(false);
 ### Laravel Scout
 [Laravel Scout](https://laravel.com/docs/12.x/scout) provides a simple, driver-based solution for adding full-text search to your Eloquent models. Using model observers, Scout will automatically keep your search indexes in sync with your Eloquent records.
 
-You can import your models using the `scout:import` command:
+This starter kit is configured to use the `database` driver for Scout, which uses "where like" clauses and full text indexes (if configured per column) to filter results from your existing database. You can change the driver and queue settings in your `.env` file:
+
+```env
+SCOUT_DRIVER=database
+SCOUT_QUEUE=true
+```
+
+The `User` model is configured as serchable by default and will automatically sync when changes are made to the models. 
+
+You can import your existing models using the `scout:import` command:
 ```bash
 php artisan scout:import "App\Models\User"
 ```
@@ -222,13 +231,6 @@ php artisan scout:queue-import "App\Models\User" --chunk=500
 To remove all of a model's records from the search index, you can use the `scout:flush` command:
 ```bash
 php artisan scout:flush "App\Models\User"
-```
-
-This starter kit is configured to use the `database` driver for Scout, which uses "where like" clauses and full text indexes (if configured per column) to filter results from your existing database. You can change the driver and queue settings in your `.env` file:
-
-```env
-SCOUT_DRIVER=database
-SCOUT_QUEUE=true
 ```
 
 ### Laravel Socialite
@@ -251,6 +253,8 @@ GOOGLE_REDIRECT_URL="http://starter-kit.com"
 
 ### Laravel Boost
 [Laravel Boost](https://github.com/laravel/boost) accelerates AI-assisted development by providing the essential context and structure that AI needs to generate high-quality, Laravel-specific code.
+
+> At this time there is no native support for [Opencode](https://github.com/sst/opencode) on the Laravel Boost installation, so a manual configuration was made to add the `AGENTS.md` file and an `opencode.json` configuration file to support the guidelines and MCP provided by the package.
 
 ### Laravel Debugbar
 [Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar) is a development package that adds a toolbar to your application, giving you real-time insights into queries, routes, views, logs, and performance. It helps you debug and profile your Laravel app directly in the browser. 
