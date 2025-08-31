@@ -2,10 +2,7 @@
     <div class="me-10 w-full pb-4 md:w-[220px]">
         <flux:navlist>
             <flux:navlist.item :href="route('settings.profile')" wire:navigate>{{ __('Profile') }}</flux:navlist.item>
-            <flux:navlist.item :href="route('settings.password')" wire:navigate>{{ __('Password') }}</flux:navlist.item>
-            @if (config('fortify.features.two-factor-authentication', true))
-            <flux:navlist.item :href="route('settings.two-factor')" wire:navigate>{{ __('Two-Factor Authentication') }}</flux:navlist.item>
-            @endif
+            <flux:navlist.item :href="route('settings.authentication')" wire:navigate>{{ __('Authentication') }}</flux:navlist.item>
             @if (\App\Auth\Sanctum::apiTokensEnabled())
             <flux:navlist.item :href="route('settings.api-tokens')" wire:navigate>{{ __('API Tokens') }}</flux:navlist.item>
             @endif

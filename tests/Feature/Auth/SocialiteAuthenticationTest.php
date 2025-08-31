@@ -46,5 +46,5 @@ test('2fa settings screen cannot be rendered if it is disabled', function () {
     
     $this->actingAs($user = User::factory()->create());
     
-    $this->get(route('settings.two-factor'))->assertSee(__('Two-Factor Authentication is disabled.'));
+    $this->get(route('settings.authentication'))->assertSee(__('Two-Factor Authentication is disabled.'));
 });
