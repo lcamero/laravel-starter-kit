@@ -99,6 +99,8 @@ To disable this authentication method, remove or comment the appropriate section
 
 More providers can be configured depending on the project needs, the starter kit just comes with the boilerplate for Google at this time.
 
+> If you are using Laravel Valet or Herd, your domains using a `.test` TLD will not be supported as redirect URLs when setting up Google's OAuth client. For it to work locally you will need to serve your app with `php artisan serve` or use a service like [Ngrok](https://ngrok.com) or [Expose](https://expose.dev)
+
 ### Enable / Disable Laravel Pulse
 
 Set the following environment variable in your `.env` file
