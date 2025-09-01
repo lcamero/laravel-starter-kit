@@ -19,6 +19,9 @@ Route::middleware('guest')->group(function () {
     Volt::route('reset-password/{token}', 'auth.reset-password')
         ->name('password.reset');
 
+    Route::view('two-factor-challenge', 'auth.two-factor-challenge')
+        ->name('two-factor.login');
+
     // Socialite support
     Route::get('/auth/{provider}/redirect', SocialiteController::class)
         ->name('socialite.redirect');
