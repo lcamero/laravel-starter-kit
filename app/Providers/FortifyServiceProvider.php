@@ -38,37 +38,6 @@ class FortifyServiceProvider extends ServiceProvider
             Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
         }
 
-        // Custom view bindings
-        Fortify::loginView(function () {
-            return view('livewire.auth.login');
-        });
-
-        Fortify::registerView(function () {
-            return view('livewire.auth.register');
-        });
-
-        Fortify::requestPasswordResetLinkView(function () {
-            return view('livewire.auth.forgot-password');
-        });
-
-        Fortify::resetPasswordView(function ($request) {
-            return view('livewire.auth.reset-password', ['request' => $request]);
-        });
-
-        Fortify::verifyEmailView(function () {
-            return view('livewire.auth.verify-email');
-        });
-
-        Fortify::confirmPasswordView(function () {
-            return view('livewire.auth.confirm-password');
-        });
-
-        if (config('fortify.two_factor_authentication_enabled', true)) {
-            Fortify::twoFactorChallengeView(function () {
-                return view('auth.two-factor-challenge');
-            });
-        }
-
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
 

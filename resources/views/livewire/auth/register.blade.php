@@ -9,30 +9,6 @@ use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
 new #[Layout('components.layouts.auth')] class extends Component {
-    public string $name = '';
-    public string $email = '';
-    public string $password = '';
-    public string $password_confirmation = '';
-
-    /**
-     * Handle an incoming registration request.
-     */
-    public function register(): void
-    {
-        $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $validated['password'] = Hash::make($validated['password']);
-
-        event(new Registered(($user = User::create($validated))));
-
-        Auth::login($user);
-
-        $this->redirectIntended(route('dashboard', absolute: false), navigate: true);
-    }
 }; ?>
 
 <div class="flex flex-col gap-6">
@@ -41,10 +17,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
 
-    <form method="POST" wire:submit="register" class="flex flex-col gap-6">
+    <form method="POST" action="{{ route('register') }}" class="flex flex-col gap-6">
+        @csrf
         <!-- Name -->
         <flux:input
-            wire:model="name"
+            name="name"
+            value="{{ old('name') }}"
             :label="__('Name')"
             type="text"
             required
@@ -55,7 +33,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         <!-- Email Address -->
         <flux:input
-            wire:model="email"
+            name="email"
+            value="{{ old('email') }}"
             :label="__('Email address')"
             type="email"
             required
@@ -65,7 +44,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         <!-- Password -->
         <flux:input
-            wire:model="password"
+            name="password"
             :label="__('Password')"
             type="password"
             required
@@ -76,7 +55,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         <!-- Confirm Password -->
         <flux:input
-            wire:model="password_confirmation"
+            name="password_confirmation"
             :label="__('Confirm password')"
             type="password"
             required
