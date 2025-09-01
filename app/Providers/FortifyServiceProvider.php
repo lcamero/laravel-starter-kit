@@ -63,7 +63,7 @@ class FortifyServiceProvider extends ServiceProvider
             return view('livewire.auth.confirm-password');
         });
 
-        if (config('fortify.features.two-factor-authentication', true)) {
+        if (config('fortify.two_factor_authentication_enabled', true)) {
             Fortify::twoFactorChallengeView(function () {
                 return view('auth.two-factor-challenge');
             });
