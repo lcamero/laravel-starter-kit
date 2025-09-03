@@ -22,13 +22,6 @@ class SocialiteGoogleController extends Controller
             'email_verified_at' => now(),
         ]);
 
-        if ($user->two_factor_secret) {
-            session()->put('login.id', $user->id);
-            session()->put('login.remember', true);
-
-            return redirect()->route('two-factor.login');
-        }
-
         Auth::login($user);
 
         return redirect('/dashboard');

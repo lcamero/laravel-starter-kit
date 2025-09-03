@@ -40,18 +40,6 @@ This will run vite to serve your asset and listen for changes (`npm run dev`), r
 
 You should be able to start developing right away without making any modifications, but you may want to tune certain settings depending on the needs of your project. All packages that come pre-installed are enabled by default, so if you wish to manage some of them you may follow these instructions.
 
-### Enable / Disable Two-Factor Authentication (2FA)
-
-This starter kit uses [Laravel Fortify](https://laravel.com/docs/12.x/fortify) to manage two-factor authentication, which is enabled by default. If you wish to enable/disable it in your project set the following environment variable in your `.env` file
-
-```env
-TWO_FACTOR_AUTH_ENABLED=true
-# or
-TWO_FACTOR_AUTH_ENABLED=false
-```
-
-This will hide the settings views and skip the redirects in the login flow.
-
 ### Configure API Tokens Feature
 
 This starter kit uses [Laravel Sanctum](https://laravel.com/docs/12.x/sanctum) for API Token management, which is enabled by default.
@@ -138,11 +126,6 @@ APP_DEBUG=false
 A series of packages have been pre-installed and configured to solve common needs in projects. Here's a breakdown of what's included:
 
 ### Production
-
-#### Laravel Fortify
-[Laravel Fortify](https://laravel.com/docs/12.x/fortify) is a frontend agnostic authentication backend for Laravel. It provides features like two-factor authentication, registration, password reset, and email verification, giving you full control over the user interface.
-
-This package was added mainly to enable 2 Factor Authentication (2FA) to the application and integrate it into the register/login flows, including the Laravel Socialite implementation.
 
 #### Laravel Horizon
 [Laravel Horizon](https://laravel.com/docs/12.x/horizon) provides a beautiful dashboard and code-driven configuration for managing [Redis](https://redis.io/) queues.  

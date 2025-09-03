@@ -19,9 +19,6 @@ Route::middleware('guest')->group(function () {
     Volt::route('reset-password/{token}', 'auth.reset-password')
         ->name('password.reset');
 
-    Route::view('two-factor-challenge', 'auth.two-factor-challenge')
-        ->name('two-factor.login');
-
     // Socialite support
     Route::get('/auth/{provider}/redirect', SocialiteController::class)
         ->name('socialite.redirect');
@@ -41,3 +38,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Volt::route('confirm-password', 'auth.confirm-password')
         ->name('password.confirm');
 });
+
+Route::post('logout', App\Livewire\Actions\Logout::class)
+    ->name('logout');
