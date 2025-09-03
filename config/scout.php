@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('SCOUT_DRIVER', 'typesense'),
+    'driver' => env('SCOUT_DRIVER', 'database'),
 
     /*
     |--------------------------------------------------------------------------
@@ -59,7 +59,7 @@ return [
     |
     */
 
-    'after_commit' => false,
+    'after_commit' => true,
 
     /*
     |--------------------------------------------------------------------------
