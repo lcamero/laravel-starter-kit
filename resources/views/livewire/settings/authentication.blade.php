@@ -43,8 +43,6 @@ new class extends Component
 }; ?>
 
 <section class="w-full">
-    @include('partials.settings-heading')
-
     <x-settings.layout heading="{{ __('Authentication') }}" subheading="{{ __('Manage your account password.') }}">
         <div class="space-y-12">
             {{-- Password Section --}}

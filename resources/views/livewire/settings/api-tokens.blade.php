@@ -68,8 +68,6 @@ new class extends Component {
 }; ?>
 
 <section class="w-full">
-    @include('partials.settings-heading')
-
     <x-settings.layout :heading="__('API Tokens')" :subheading="__('Manage API tokens for your account.')">
         @if (Sanctum::apiTokensEnabled())
         <div class="my-6 w-full space-y-6">
@@ -77,7 +75,7 @@ new class extends Component {
                 <flux:heading level="3">{{ __('Create API Token') }}</flux:heading>
             </div>
 
-            <div class="grid grid-cols-1 gap-y-6 bg-zinc-100 dark:bg-zinc-700 p-4 rounded-md">
+            <div class="grid grid-cols-1 gap-y-6">
                 <flux:input wire:model="tokenName" :label="__('Token Name')" type="text" required />
 
                 @if (Sanctum::getPermissions())

@@ -296,3 +296,8 @@ Run your test suite with:
 ```bash
 ./vendor/bin/pest
 ```
+
+#### Spatie Laravel Settings
+[Spatie Laravel Settings](https://github.com/spatie/laravel-settings) allows you to store strongly typed application settings in a repository (database, redis, etc.) and use them through an application without hassle.
+
+The kit installs only 1 setting to define the application name and it is created when the migrations run. You're free to build on top of this to create your settings configuration.

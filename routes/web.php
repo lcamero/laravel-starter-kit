@@ -19,8 +19,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')
         ->name('dashboard');
 
-    Route::redirect('settings', 'settings/profile');
+    Route::redirect('settings', 'settings/general');
 
+    // General settings
+    Volt::route('settings/general', 'settings.general')->name('settings.general');
+
+    // Personal preferences
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/authentication', 'settings.authentication')->name('settings.authentication');
     Volt::route('settings/api-tokens', 'settings.api-tokens')->name('settings.api-tokens');
