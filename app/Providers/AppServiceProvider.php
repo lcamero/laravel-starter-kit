@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
@@ -33,5 +34,17 @@ class AppServiceProvider extends ServiceProvider
             return true;
             // return $user->isAdmin();
         });
+
+        // Implicitly grant "Administrator" role all permissions.
+        // This works in the app by using gate-related functions like auth()->user->can() and @can()
+        Gate::before(function (User $user, $ability) {
+            return $user->hasRole(Role::Administrator) ? true : null;
+        });
+
+        // Mostly when provisioning, the settings db does not exist yet
+        try {
+            config(['app.name' => app(\App\Settings\GeneralSettings::class)->application_name]);
+        } catch (\Exception $e) {
+        }
     }
 }

@@ -23,9 +23,16 @@
                 <flux:navbar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                     {{ __('Dashboard') }}
                 </flux:navbar.item>
+                @can(\App\Enums\Permission::ManageApplicationUsers)
+                <flux:navbar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
+                    {{ __('Users') }}
+                </flux:navbar.item>
+                @endcan
+                @can(\App\Enums\Permission::ManageApplicationSettings)
                 <flux:navbar.item icon="wrench-screwdriver" :href="route('settings.general')" :current="request()->routeIs('settings.general')" wire:navigate>
                     {{ __('Configuration') }}
                 </flux:navbar.item>
+                @endcan
             </flux:navbar>
 
             <flux:spacer />
@@ -141,6 +148,11 @@
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                     {{ __('Dashboard') }}
                     </flux:navlist.item>
+                    @can(\App\Enums\Permission::ManageApplicationUsers)
+                    <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
+                        {{ __('Users') }}
+                    </flux:navlist.item>
+                    @endcan
                 </flux:navlist.group>
             </flux:navlist>
 
@@ -155,9 +167,11 @@
                 {{ __('Documentation') }}
                 </flux:navlist.item>
                 @endif
-                <flux:navbar.item icon="wrench-screwdriver" :href="route('settings.general')" :current="request()->routeIs('settings.general')" wire:navigate>
+                @can(\App\Enums\Permission::ManageApplicationSettings)
+                <flux:navlist.item icon="wrench-screwdriver" :href="route('settings.general')" :current="request()->routeIs('settings.general')" wire:navigate>
                     {{ __('Configuration') }}
-                </flux:navbar.item>
+                </flux:navlist.item>
+                @endcan
             </flux:navlist>
         </flux:sidebar>
 

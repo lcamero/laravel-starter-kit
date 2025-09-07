@@ -26,6 +26,12 @@ You will be asked if you wish to install a Flux UI pro license after the project
 php artisan flux:activate
 ```
 
+Run migrations with
+
+```bash
+php artisan migrate
+```
+
 Lastly, a quick way to fire up the configured services and start building is to run the following command:
 
 ```bash
@@ -296,6 +302,36 @@ Run your test suite with:
 ```bash
 ./vendor/bin/pest
 ```
+
+#### Spatie Laravel Permission
+[Spatie Laravel Permission](https://github.com/spatie/laravel-permission) allows you to associate users with permissions and roles.
+
+This kit configures a lean base for permissions via the `create_base_permissions` migration. A couple of enum classes were created to manage Roles and Permissions but you are free to modify the logic depending on your needs. Overall, you may choose to store your roles and permissions elsewhere (in the database for instance) instead of tracking them via enums, so you will need to make modifications where necessary.
+
+By default, an "Administrator" role is created automatically when migrations are run and associated to an "admin" user. The role is given full permissions via a `Gate` configuration under the `AppServiceProvider`.
+
+The credentials for the administrator are the following:
+
+```bash
+email: admin@example.com
+password: password
+```
+
+You may reconfigure this as you see fit. You may choose to remove the user creation, modify the base permissions, etc.
+
+> MAKE SURE TO CHANGE THE PASSWORD TO A RANDOM STRING OR REMOVE THE USER CREATION ENTIRELY BEFORE SHIPPING TO PRODUCTION
+
+##### Creating an administrator user
+
+You may also call the following artisan command to create an administrator account for your application:
+
+```bash
+php artisan user:create-admin
+```
+
+The kit provides a basic set of component to manage users/permissions via a user interface in the application, so you will have to extend or replace it based on your specific requirements.
+
+> Only administrators are able to access the user management controls.
 
 #### Spatie Laravel Settings
 [Spatie Laravel Settings](https://github.com/spatie/laravel-settings) allows you to store strongly typed application settings in a repository (database, redis, etc.) and use them through an application without hassle.

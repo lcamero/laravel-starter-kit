@@ -14,9 +14,9 @@ beforeEach(function () {
 
 test('api tokens settings screen cannot be rendered if sanctum is disabled', function () {
     Sanctum::enableApiTokens(false);
-    
+
     $this->actingAs($user = User::factory()->create());
-    
+
     $this->get(route('settings.api-tokens'))->assertSee(__('API Token Management is disabled.'));
 });
 

@@ -22,6 +22,11 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    @can(\App\Enums\Permission::ManageApplicationUsers)
+                    <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
+                        {{ __('Users') }}
+                    </flux:navlist.item>
+                    @endcan
                 </flux:navlist.group>
             </flux:navlist>
 
@@ -29,17 +34,19 @@
 
             <flux:navlist variant="outline">
                 @if (app()->isLocal())
-                    <flux:navlist.item icon="folder-git-2" href="https://github.com/lcamero/laravel-starter-kit" target="_blank">
-                    {{ __('Repository') }}
-                    </flux:navlist.item>
+                <flux:navlist.item icon="folder-git-2" href="https://github.com/lcamero/laravel-starter-kit" target="_blank">
+                {{ __('Repository') }}
+                </flux:navlist.item>
 
-                    <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs" target="_blank">
-                    {{ __('Documentation') }}
-                    </flux:navlist.item>
+                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs" target="_blank">
+                {{ __('Documentation') }}
+                </flux:navlist.item>
                 @endif
+                @can(\App\Enums\Permission::ManageApplicationSettings)
                 <flux:navlist.item icon="wrench-screwdriver" :href="route('settings.general')" :current="request()->routeIs('settings.general')" wire:navigate>
                     {{ __('Configuration') }}
                 </flux:navlist.item>
+                @endcan
             </flux:navlist>
 
             <!-- Desktop User Menu -->

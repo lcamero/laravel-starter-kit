@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
 
