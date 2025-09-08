@@ -2,6 +2,12 @@
 
 return [
 
+    /**
+     * When application is provisioned by running migrations, an Administrator user is created by default
+     * You may define what the email used for it is here.
+     */
+    'provision_admin_email' => env('PROVISION_ADMIN_EMAIL', 'admin@example.com'),
+
     /*
      * Each settings class used in your application must be registered, you can
      * put them (manually) here.

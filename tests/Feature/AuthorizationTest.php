@@ -1,8 +1,8 @@
 <?php
 
+use App\Enums\Permission;
 use App\Enums\Role;
 use App\Models\User;
-use App\Enums\Permission;
 use Spatie\Permission\Models\Permission as PermissionModel;
 
 beforeEach(function () {
@@ -33,7 +33,6 @@ it('denies access to general settings without admin role', function () {
     $this->get(route('settings.general'))
         ->assertOk();
 });
-
 
 it('denies access to user management routes without permission', function () {
     // Index

@@ -310,7 +310,7 @@ This kit configures a lean base for permissions via the `create_base_permissions
 
 By default, an "Administrator" role is created automatically when migrations are run and associated to an "admin" user. The role is given full permissions via a `Gate` configuration under the `AppServiceProvider`.
 
-The credentials for the administrator are the following:
+The administrator account receives the email defined in `config/settings.php` under 'provision_admin_email`. It uses the value from the `.env` variable `TENANCY_PROVISION_ADMIN_EMAIL`. By default, the credentials for the administrator are the following:
 
 ```bash
 email: admin@example.com

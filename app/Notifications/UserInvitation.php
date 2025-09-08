@@ -36,7 +36,7 @@ class UserInvitation extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->greeting(__('common.hello'))
-            ->line(__('invitations.invited_to_join') . ' ' . config('app.name'))
+            ->line(__('invitations.invited_to_join').' '.config('app.name'))
             ->line(__('invitations.visit_link_to_reset_password'))
             ->action('Visit application', route('password.request'));
     }
