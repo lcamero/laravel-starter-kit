@@ -74,7 +74,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 }; ?>
 
 <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Log in to your account')" />
+    <x-auth-header :title="__('login.log_in_to_your_account')" />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
@@ -83,7 +83,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         <!-- Email Address -->
         <flux:input
             wire:model="email"
-            :label="__('Email address')"
+            :label="__('login.email_address')"
             type="email"
             required
             autofocus
@@ -95,34 +95,34 @@ new #[Layout('components.layouts.auth')] class extends Component {
         <div class="relative">
             <flux:input
                 wire:model="password"
-                :label="__('Password')"
+                :label="__('common.password')"
                 type="password"
                 required
                 autocomplete="current-password"
-                :placeholder="__('Password')"
+                :placeholder="__('common.password')"
                 viewable
             />
 
             @if (Route::has('password.request'))
                 <flux:link class="absolute end-0 top-0 text-sm" :href="route('password.request')" wire:navigate>
-                    {{ __('Forgot your password?') }}
+                    {{ __('login.forgot_your_password') }}
                 </flux:link>
             @endif
         </div>
 
         <!-- Remember Me -->
-        <flux:checkbox wire:model="remember" :label="__('Remember me')" />
+        <flux:checkbox wire:model="remember" :label="__('login.remember_me')" />
 
         <div class="flex items-center justify-end">
-            <flux:button variant="primary" type="submit" class="w-full">{{ __('Log in') }}</flux:button>
+            <flux:button variant="primary" type="submit" class="w-full">{{ __('login.log_in') }}</flux:button>
         </div>
     </form>
 
 
     @if (Route::has('register'))
         <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-            <span>{{ __('Don\'t have an account?') }}</span>
-            <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>
+            <span>{{ __('login.dont_have_account') }}</span>
+            <flux:link :href="route('register')" wire:navigate>{{ __('login.sign_up') }}</flux:link>
         </div>
     @endif
 
@@ -137,7 +137,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
                 <path fill="none" d="M0 0h48v48H0z"></path>
             </svg>
-            {{ __('Continue with Google') }}
+            {{ __('login.continue_with_google') }}
         </flux:button>
     @endif
 </div>

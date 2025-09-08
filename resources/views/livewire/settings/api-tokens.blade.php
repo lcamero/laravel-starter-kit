@@ -68,20 +68,20 @@ new class extends Component {
 }; ?>
 
 <section class="w-full">
-    <x-settings.layout :heading="__('API Tokens')" :subheading="__('Manage API tokens for your account.')">
+    <x-settings.layout :heading="__('settings.api_tokens')" :subheading="__('api.manage_account_tokens')">
         @if (Sanctum::apiTokensEnabled())
         <div class="my-6 w-full space-y-6">
             <div class="flex items-center justify-between">
-                <flux:heading level="3">{{ __('Create API Token') }}</flux:heading>
+                <flux:heading level="3">{{ __('api.create_api_token') }}</flux:heading>
             </div>
 
             <div class="grid grid-cols-1 gap-y-6">
-                <flux:input wire:model="tokenName" :label="__('Token Name')" type="text" required />
+                <flux:input wire:model="tokenName" :label="__('api.token_name')" type="text" required />
 
                 @if (Sanctum::getPermissions())
-                <flux:label>{{ __('Permissions') }}</flux:label>
+                <flux:label>{{ __('common.permissions') }}</flux:label>
                 <flux:checkbox.group class="">
-                    <flux:checkbox.all :label="__('Check all')" />
+                    <flux:checkbox.all :label="__('common.check_all')" />
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-4">
                         @foreach (Sanctum::getPermissions() as $permission)
                             <label class="flex items-center">
@@ -94,7 +94,7 @@ new class extends Component {
             </div>
 
             <div class="flex items-center justify-end">
-                <flux:button variant="primary" wire:click="createToken">{{ __('Create Token') }}</flux:button>
+                <flux:button variant="primary" wire:click="createToken">{{ __('api.create_token') }}</flux:button>
             </div>
         </div>
 
@@ -103,11 +103,11 @@ new class extends Component {
                 <div class="space-y-6">
                     <div>
                         <flux:heading size="lg">
-                            {{ __('API Token') }}
+                            {{ __('api.api_token') }}
                         </flux:heading>
 
                         <flux:text class="mt-2">
-                            <p>{{ __('Here is your new API token. This is the only time it will be shown, so please copy it to a safe place.') }}</p>
+                            <p>{{ __('api.new_token_notice') }}</p>
                         </flux:text>
                     </div>
                     <div class="mt-4 rounded-md bg-zinc-100 p-4 font-mono text-sm dark:bg-zinc-700">
@@ -117,7 +117,7 @@ new class extends Component {
                         <flux:spacer />
 
                         <flux:modal.close>
-                            <flux:button>{{ __('Close') }}</flux:button>
+                            <flux:button>{{ __('common.close') }}</flux:button>
                         </flux:modal.close>
                     </div>
                 </div>
@@ -128,28 +128,28 @@ new class extends Component {
             <div class="space-y-6">
                 <div>
                     <flux:heading size="lg">
-                        {{ __('Delete API Token') }}
+                        {{ __('api.delete_api_token') }}
                     </flux:heading>
 
                     <flux:text class="mt-2">
-                        <p>{{ __('Are you sure you want to delete this API token?') }}</p>
+                        <p>{{ __('api.delete_token_confirmation') }}</p>
                     </flux:text>
                 </div>
                 <div class="flex gap-2">
                     <flux:spacer />
 
                     <flux:modal.close>
-                        <flux:button>{{ __('Cancel') }}</flux:button>
+                        <flux:button>{{ __('common.cancel') }}</flux:button>
                     </flux:modal.close>
 
-                    <flux:button variant="danger" wire:click="deleteToken">{{ __('Delete') }}</flux:button>
+                    <flux:button variant="danger" wire:click="deleteToken">{{ __('common.delete') }}</flux:button>
                 </div>
             </div>
         </flux:modal>
 
         <div class="my-6 w-full space-y-6">
             <div class="flex items-center justify-between">
-                <flux:heading level="3">{{ __('Manage API Tokens') }}</flux:heading>
+                <flux:heading level="3">{{ __('api.manage_api_tokens') }}</flux:heading>
             </div>
 
             <div class="space-y-4">
@@ -157,7 +157,7 @@ new class extends Component {
                     <div class="flex items-center justify-between rounded-md p-4 bg-zinc-100 dark:bg-zinc-700">
                         <div class="">
                             <flux:heading>
-                                {{ $token->name }} - {{ __('Last used') }} {{ $token->last_used_at ? $token->last_used_at->diffForHumans() : __('never') }}
+                                {{ $token->name }} - {{ __('api.last_used') }} {{ $token->last_used_at ? $token->last_used_at->diffForHumans() : __('common.never') }}
                             </flux:heading>
                             
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-4 mt-2">
@@ -168,15 +168,15 @@ new class extends Component {
                                 @endforeach
                             </div>
                         </div>
-                        <flux:button variant="danger" wire:click="confirmDeleteToken({{ $token->id }})">{{ __('Delete') }}</flux:button>
+                        <flux:button variant="danger" wire:click="confirmDeleteToken({{ $token->id }})">{{ __('common.delete') }}</flux:button>
                     </div>
                 @empty
-                    <p>{{ __('You have no API tokens.') }}</p>
+                    <p>{{ __('api.no_tokens') }}</p>
                 @endforelse
             </div>
         </div>
         @else
-        <flux:callout icon="exclamation-triangle" color="amber" :heading="__('API Token Management is disabled.')"></flux:callout>
+        <flux:callout icon="exclamation-triangle" color="amber" :heading="__('api.management_disabled')"></flux:callout>
         @endif
     </x-settings.layout>
 </section>

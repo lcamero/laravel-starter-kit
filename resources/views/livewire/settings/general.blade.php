@@ -41,13 +41,13 @@ new #[Layout('components.layouts.app')] class extends Component {
 }; ?>
 
 <section class="w-full">
-    <x-settings.layout :heading="__('General')" :subheading="__('Manage general system settings')">
+    <x-settings.layout :heading="__('settings.general')" :subheading="__('settings.manage_general_system_settings')">
         <form wire:submit="update" class="my-6 w-full space-y-6">
-            <flux:input wire:model="application_name" :label="__('Application Name')" type="text" required autofocus autocomplete="application_name" />
+            <flux:input wire:model="application_name" :label="__('settings.application_name')" type="text" required autofocus autocomplete="application_name" />
 
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">
-                    <flux:button variant="primary" type="submit" class="w-full">{{ __('Save') }}</flux:button>
+                    <flux:button variant="primary" type="submit" class="w-full">{{ __('common.save') }}</flux:button>
                 </div>
             </div>
         </form>

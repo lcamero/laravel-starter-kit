@@ -21,16 +21,16 @@
 
             <flux:navbar class="-mb-px max-lg:hidden">
                 <flux:navbar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                    {{ __('Dashboard') }}
+                    {{ __('navigation.dashboard') }}
                 </flux:navbar.item>
                 @can(\App\Enums\Permission::ManageApplicationUsers)
                 <flux:navbar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
-                    {{ __('Users') }}
+                    {{ __('navigation.users') }}
                 </flux:navbar.item>
                 @endcan
                 @can(\App\Enums\Permission::ManageApplicationSettings)
                 <flux:navbar.item icon="wrench-screwdriver" :href="route('settings.general')" :current="request()->routeIs('settings.general')" wire:navigate>
-                    {{ __('Configuration') }}
+                    {{ __('navigation.configuration') }}
                 </flux:navbar.item>
                 @endcan
             </flux:navbar>
@@ -39,7 +39,7 @@
 
             <flux:navbar class="me-1.5 space-x-0.5 rtl:space-x-reverse py-0!">
                 @if (app()->isLocal())
-                <flux:tooltip :content="__('Starter Kit Repository')" position="bottom">
+                <flux:tooltip :content="__('navigation.starter_kit_repository')" position="bottom">
                     <flux:navbar.item
                         class="h-10 max-lg:hidden [&>div>svg]:size-5"
                         icon="folder-git-2"
@@ -48,7 +48,7 @@
                         label="Repository"
                     />
                 </flux:tooltip>
-                <flux:tooltip :content="__('Laravel Documentation')" position="bottom">
+                <flux:tooltip :content="__('navigation.laravel_documentation')" position="bottom">
                     <flux:navbar.item
                         class="h-10 max-lg:hidden [&>div>svg]:size-5"
                         icon="book-open-text"
@@ -99,20 +99,20 @@
                     <flux:menu.separator />
                     
                     <flux:menu.radio.group>
-                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Preferences') }}</flux:menu.item>
+                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('navigation.preferences') }}</flux:menu.item>
                     </flux:menu.radio.group>
                     
                     <flux:menu.separator />
                     
                     <flux:menu.radio.group>
                         @if (Route::has('horizon.index'))
-                        <flux:menu.item :href="route('horizon.index')" target="_blank" icon="circle-stack">{{ __('Horizon') }}</flux:menu.item>
+                        <flux:menu.item :href="route('horizon.index')" target="_blank" icon="circle-stack">{{ __('navigation.horizon') }}</flux:menu.item>
                         @endif
                         @if (Route::has('telescope') && config('telescope.enabled'))
-                        <flux:menu.item :href="route('telescope')" target="_blank" icon="lifebuoy">{{ __('Telescope') }}</flux:menu.item>
+                        <flux:menu.item :href="route('telescope')" target="_blank" icon="lifebuoy">{{ __('navigation.telescope') }}</flux:menu.item>
                         @endif
                         @if (Route::has('pulse') && config('pulse.enabled'))
-                        <flux:menu.item :href="route('pulse')" target="_blank" icon="heart">{{ __('Pulse') }}</flux:menu.item>
+                        <flux:menu.item :href="route('pulse')" target="_blank" icon="heart">{{ __('navigation.pulse') }}</flux:menu.item>
                         @endif
                     </flux:menu.radio.group>
                     
@@ -121,7 +121,7 @@
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
                         <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-                            {{ __('Log Out') }}
+                            {{ __('common.log_out') }}
                         </flux:menu.item>
                     </form>
                 </flux:menu>
@@ -146,11 +146,11 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group>
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                    {{ __('Dashboard') }}
+                    {{ __('navigation.dashboard') }}
                     </flux:navlist.item>
                     @can(\App\Enums\Permission::ManageApplicationUsers)
                     <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
-                        {{ __('Users') }}
+                        {{ __('navigation.users') }}
                     </flux:navlist.item>
                     @endcan
                 </flux:navlist.group>
@@ -161,15 +161,15 @@
             <flux:navlist variant="outline">
                 @if (app()->isLocal())
                 <flux:navlist.item icon="folder-git-2" href="https://github.com/lcamero/laravel-starter-kit" target="_blank">
-                {{ __('Repository') }}
+                {{ __('navigation.repository') }}
                 </flux:navlist.item>
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs" target="_blank">
-                {{ __('Documentation') }}
+                {{ __('navigation.documentation') }}
                 </flux:navlist.item>
                 @endif
                 @can(\App\Enums\Permission::ManageApplicationSettings)
                 <flux:navlist.item icon="wrench-screwdriver" :href="route('settings.general')" :current="request()->routeIs('settings.general')" wire:navigate>
-                    {{ __('Configuration') }}
+                    {{ __('navigation.configuration') }}
                 </flux:navlist.item>
                 @endcan
             </flux:navlist>

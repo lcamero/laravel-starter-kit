@@ -17,7 +17,7 @@ test('api tokens settings screen cannot be rendered if sanctum is disabled', fun
 
     $this->actingAs($user = User::factory()->create());
 
-    $this->get(route('settings.api-tokens'))->assertSee(__('API Token Management is disabled.'));
+    $this->get(route('settings.api-tokens'))->assertSee(__('api.management_disabled'));
 });
 
 test('api tokens can be created', function () {

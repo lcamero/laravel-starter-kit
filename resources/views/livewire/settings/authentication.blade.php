@@ -43,22 +43,22 @@ new class extends Component
 }; ?>
 
 <section class="w-full">
-    <x-settings.layout heading="{{ __('Authentication') }}" subheading="{{ __('Manage your account password.') }}">
+    <x-settings.layout heading="{{ __('settings.authentication') }}" subheading="{{ __('profile.manage_account_password') }}">
         <div class="space-y-12">
             {{-- Password Section --}}
             <section>
                 <h2 class="text-lg font-medium text-zinc-900 dark:text-zinc-100">
-                    {{ $passwordIsSet ? __('Update password') : __('Set password') }}
+                    {{ $passwordIsSet ? __('profile.update_password') : __('profile.set_password') }}
                 </h2>
                 <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                    {{ __('Ensure your account is using a long, random password to stay secure.') }}
+                    {{ __('profile.secure_password_notice') }}
                 </p>
 
                 <form method="POST" wire:submit="updatePassword" class="mt-6 space-y-6">
                     @if($passwordIsSet)
                         <flux:input
                             wire:model="current_password"
-                            :label="__('Current password')"
+                            :label="__('profile.current_password')"
                             type="password"
                             required
                             autocomplete="current-password"
@@ -66,14 +66,14 @@ new class extends Component
                     @else
                         <flux:callout icon="users" color="sky">
                             <flux:callout.text>
-                                {{ __('You signed up using a social login. Set a password to enable password-based login for your account.') }}
+                                {{ __('profile.social_login_notice') }}
                             </flux:callout.text>
                         </flux:callout>
                     @endif
 
                     <flux:input
                         wire:model="password"
-                        :label="__('New password')"
+                        :label="__('profile.new_password')"
                         type="password"
                         required
                         autocomplete="new-password"
@@ -82,7 +82,7 @@ new class extends Component
                     
                     <flux:input
                         wire:model="password_confirmation"
-                        :label="__('Confirm Password')"
+                        :label="__('profile.confirm_password')"
                         type="password"
                         required
                         autocomplete="new-password"
@@ -92,12 +92,12 @@ new class extends Component
                     <div class="flex items-center gap-4">
                         <div class="flex items-center justify-end gap-4">
                             <flux:button variant="primary" type="submit" class="w-full">
-                                {{ $passwordIsSet ? __('Update Password') : __('Set Password') }}
+                                {{ $passwordIsSet ? __('profile.update_password') : __('profile.set_password_button') }}
                             </flux:button>
                         </div>
 
                         <x-action-message class="me-3" on="password-updated">
-                            {{ __('Saved.') }}
+                            {{ __('common.saved') }}
                         </x-action-message>
                     </div>
                 </form>

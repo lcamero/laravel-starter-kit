@@ -35,9 +35,9 @@ class UserInvitation extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->greeting(__('Hello!'))
-            ->line(__('You have been invited to join') . ' ' . config('app.name'))
-            ->line(__('Visit the link below and reset your password to log in.'))
+            ->greeting(__('common.hello'))
+            ->line(__('invitations.invited_to_join') . ' ' . config('app.name'))
+            ->line(__('invitations.visit_link_to_reset_password'))
             ->action('Visit application', route('password.request'));
     }
 

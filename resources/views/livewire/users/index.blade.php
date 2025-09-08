@@ -23,7 +23,7 @@ new class extends Component {
     {
         return User::search($this->search)
             ->query(fn ($query) => $query->with('roles')->latest())
-            ->paginate();
+            ->paginate(1);
     }
 
     public function confirmUserDeletion($userId): void
@@ -46,31 +46,31 @@ new class extends Component {
 <div>
     <div class="relative mb-6 w-full">
         <div class="flex justify-between items-center">
-            <flux:heading size="xl" level="1" class="mb-6">{{ __('Users') }}</flux:heading>
+            <flux:heading size="xl" level="1" class="mb-6">{{ __('navigation.users') }}</flux:heading>
             <flux:button :href="route('users.create')" variant="primary" size="sm">
-                {{ __('New user') }}
+                {{ __('users.new_user') }}
             </flux:button>
         </div>
         <flux:separator variant="subtle" />
     </div>
 
-    <flux:input icon="magnifying-glass" size="sm" :placeholder="__('Search')" wire:model.live.debounce.300ms="search" class="max-w-xs mb-6" />
+    <flux:input icon="magnifying-glass" size="sm" :placeholder="__('common.search')" wire:model.live.debounce.300ms="search" class="max-w-xs mb-6" />
 
     <div class="relative overflow-x-auto">
         <table class="w-full lg:w-4/5 text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
             <thead class="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-700 dark:text-zinc-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        {{ __('Name') }}
+                        {{ __('common.name') }}
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        {{ __('Email') }}
+                        {{ __('common.email') }}
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        {{ __('Created at') }}
+                        {{ __('common.created_at') }}
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        {{ __('Roles') }}
+                        {{ __('common.roles') }}
                     </th>
                     <th scope="col" class="px-6 py-3">
                     </th>
@@ -97,10 +97,10 @@ new class extends Component {
     
                                 <flux:menu>
                                     <flux:menu.item icon="pencil-square" href="{{ route('users.edit', ['userId' => $user->id]) }}" wire:navigate>
-                                        {{ __('Edit') }}
+                                        {{ __('common.edit') }}
                                     </flux:menu.item>
                                     <flux:modal.trigger name="confirm-user-deletion">
-                                        <flux:menu.item icon="trash" variant="danger" wire:click="confirmUserDeletion('{{ $user->id }}')">{{ __('Delete') }}</flux:menu.item>
+                                        <flux:menu.item icon="trash" variant="danger" wire:click="confirmUserDeletion('{{ $user->id }}')">{{ __('common.delete') }}</flux:menu.item>
                                     </flux:modal.trigger>
                                 </flux:menu>
                             </flux:dropdown>
@@ -118,17 +118,17 @@ new class extends Component {
     <flux:modal name="confirm-user-deletion" focusable class="max-w-lg">
         <form method="POST" wire:submit="deleteUser" class="space-y-6 p-6">
             <div>
-                <flux:heading size="lg">{{ __('Are you sure you want to delete this user?') }}</flux:heading>
+                <flux:heading size="lg">{{ __('users.delete_user_confirmation') }}</flux:heading>
 
                 <flux:subheading>
-                    {{ __('Once this user is deleted, all of its resources and data will be permanently deleted. This action cannot be undone') }}
+                    {{ __('users.delete_user_warning') }}
                 </flux:subheading>
 
                 @if(auth()->user()->id === $userToDelete)
                 <flux:callout
                     variant="warning"
                     icon="exclamation-triangle"
-                    :heading="__('If you delete your account you will be logged out immediately.')"
+                    :heading="__('profile.delete_account_logout_warning')"
                     class="mt-6 text-sm!"
                 />
                 @endif
@@ -136,10 +136,10 @@ new class extends Component {
 
             <div class="flex justify-end space-x-2 rtl:space-x-reverse">
                 <flux:modal.close>
-                    <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                    <flux:button variant="filled">{{ __('common.cancel') }}</flux:button>
                 </flux:modal.close>
 
-                <flux:button variant="danger" type="submit">{{ __('Delete user') }}</flux:button>
+                <flux:button variant="danger" type="submit">{{ __('users.delete_user') }}</flux:button>
             </div>
         </form>
     </flux:modal>

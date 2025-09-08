@@ -9,7 +9,7 @@ enum Role: string
     public function getLabel(): string
     {
         return match ($this) {
-            self::Administrator => __('Administrator'),
+            self::Administrator => __('users.administrator'),
         };
     }
 }
