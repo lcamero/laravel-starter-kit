@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'manage_application_users' => 'Manage Application Users',
     'manage_application_settings' => 'Manage Application Settings',
     'manage_personal_and_app_config' => 'Manage your personal preferences and application configuration',
     'select_category' => 'Select category',

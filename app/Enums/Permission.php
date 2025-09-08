@@ -11,7 +11,7 @@ enum Permission: string
     {
         return match ($this) {
             self::ManageApplicationSettings => __('settings.manage_application_settings'),
-            self::ManageApplicationUsers => __('users.manage_application_users'),
+            self::ManageApplicationUsers => __('settings.manage_application_users'),
         };
     }
 }

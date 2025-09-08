@@ -36,7 +36,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 }; ?>
 
 <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('login.create_an_account')" :description="__('login.enter_your_details_to_create_your_account')" />
+    <x-auth-header :title="__('auth.create_an_account')" :description="__('auth.enter_your_details_to_create_your_account')" />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
@@ -56,7 +56,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         <!-- Email Address -->
         <flux:input
             wire:model="email"
-            :label="__('login.email_address')"
+            :label="__('auth.email_address')"
             type="email"
             required
             autocomplete="email"
@@ -87,14 +87,14 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full">
-                {{ __('login.create_account') }}
+                {{ __('auth.create_account') }}
             </flux:button>
         </div>
     </form>
 
     <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-        <span>{{ __('login.already_have_an_account') }}</span>
-        <flux:link :href="route('login')" wire:navigate>{{ __('login.log_in') }}</flux:link>
+        <span>{{ __('auth.already_have_an_account') }}</span>
+        <flux:link :href="route('login')" wire:navigate>{{ __('auth.log_in') }}</flux:link>
     </div>
 
     @if (config('services.google'))
@@ -108,7 +108,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
             <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
             <path fill="none" d="M0 0h48v48H0z"></path>
         </svg>
-        {{ __('login.continue_with_google') }}
+        {{ __('auth.continue_with_google') }}
     </flux:button>
 @endif
 </div>

@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'manage_application_users' => 'Manage Application Users',
     'create_user' => 'Create User',
     'update_user' => 'Update User',
     'new_user' => 'New user',

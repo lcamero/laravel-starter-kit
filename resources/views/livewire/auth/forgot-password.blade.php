@@ -18,12 +18,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         Password::sendResetLink($this->only('email'));
 
-        session()->flash('status', __('login.a_reset_link_will_be_sent'));
+        session()->flash('status', __('auth.a_reset_link_will_be_sent'));
     }
 }; ?>
 
 <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('login.forgot_password')" :description="__('login.enter_email_for_reset_link')" />
+    <x-auth-header :title="__('auth.forgot_password')" :description="__('auth.enter_email_for_reset_link')" />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
@@ -39,11 +39,11 @@ new #[Layout('components.layouts.auth')] class extends Component {
             placeholder="email@example.com"
         />
 
-        <flux:button variant="primary" type="submit" class="w-full">{{ __('login.email_password_reset_link') }}</flux:button>
+        <flux:button variant="primary" type="submit" class="w-full">{{ __('auth.email_password_reset_link') }}</flux:button>
     </form>
 
     <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-400">
-        <span>{{ __('login.or_return_to') }}</span>
-        <flux:link :href="route('login')" wire:navigate>{{ __('login.log_in_link') }}</flux:link>
+        <span>{{ __('auth.or_return_to') }}</span>
+        <flux:link :href="route('login')" wire:navigate>{{ __('auth.log_in_link') }}</flux:link>
     </div>
 </div>
