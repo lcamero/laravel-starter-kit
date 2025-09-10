@@ -4,50 +4,51 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
+        <flux:sidebar sticky collapsible class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+            <flux:sidebar.header>
+                <flux:sidebar.brand
+                    href="{{ route('dashboard') }}"
+                    name="{{ config('app.name') }}"
+                >
+                    <x-slot name="logo">
+                        <div class="flex aspect-square size-6 p-1 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
+                            <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
+                        </div>
+                    </x-slot>
+                </flux:sidebar.brand>
 
-            <flux:brand
-                href="{{ route('dashboard') }}"
-                name="{{ config('app.name') }}"
-                class="ml-4"
-            >
-                <x-slot name="logo">
-                    <div class="flex aspect-square size-6 p-1 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
-                        <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
-                    </div>
-                </x-slot>
-            </flux:brand>
+                <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
+            </flux:sidebar.header>
 
-            <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('navigation.platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('navigation.dashboard') }}</flux:navlist.item>
+            <flux:sidebar.nav>
+                <flux:sidebar.group :heading="__('navigation.platform')" class="grid">
+                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('navigation.dashboard') }}</flux:sidebar.item>
                     @can(\App\Enums\Permission::ManageApplicationUsers)
-                    <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
+                    <flux:sidebar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
                         {{ __('navigation.users') }}
-                    </flux:navlist.item>
+                    </flux:sidebar.item>
                     @endcan
-                </flux:navlist.group>
-            </flux:navlist>
+                </flux:sidebar.group>
+            </flux:sidebar.nav>
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
+            <flux:sidebar.nav>
                 @if (app()->isLocal())
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/lcamero/laravel-starter-kit" target="_blank">
+                <flux:sidebar.item icon="folder-git-2" href="https://github.com/lcamero/laravel-starter-kit" target="_blank">
                 {{ __('navigation.repository') }}
-                </flux:navlist.item>
+                </flux:sidebar.item>
 
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs" target="_blank">
+                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs" target="_blank">
                 {{ __('navigation.documentation') }}
-                </flux:navlist.item>
+                </flux:sidebar.item>
                 @endif
                 @can(\App\Enums\Permission::ManageApplicationSettings)
-                <flux:navlist.item icon="wrench-screwdriver" :href="route('settings.general')" :current="request()->routeIs('settings.general')" wire:navigate>
+                <flux:sidebar.item icon="wrench-screwdriver" :href="route('settings.general')" :current="request()->routeIs('settings.general')" wire:navigate>
                     {{ __('navigation.configuration') }}
-                </flux:navlist.item>
+                </flux:sidebar.item>
                 @endcan
-            </flux:navlist>
+            </flux:sidebar.nav>
 
             <!-- Desktop User Menu -->
             <flux:dropdown class="hidden lg:block" position="bottom" align="start">
